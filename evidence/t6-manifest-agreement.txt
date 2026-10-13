@@ -1,0 +1,13 @@
+E6.4 manifest vs live object, after rollback and re-apply
+--- dry-run apply (every object must say unchanged) ---
+deployment.apps/notice-board unchanged (server dry run)
+service/notice-board unchanged (server dry run)
+service/notice-board-ext unchanged (server dry run)
+--- live Deployment fields ---
+image=notice-board:02230153-1.1.0 version=1.1.0 progressDeadlineSeconds=60 minReadySeconds=5
+--- same fields in the manifest ---
+kubernetes.io/change-cause: "Release 1.1.0 using RollingUpdate (maxUnavailable 0, maxSurge 1, minReadySeconds 5)"
+progressDeadlineSeconds: 60
+minReadySeconds: 5
+version: "1.1.0"
+image: notice-board:02230153-1.1.0
