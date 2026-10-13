@@ -386,8 +386,6 @@
 2026-10-13T13:49:09Z OK {"version": "1.1.0", "student": "02230153", "pod": "notice-board-green-57687f5467-9gd5p"}
 2026-10-13T13:49:09Z OK {"version": "1.1.0", "student": "02230153", "pod": "notice-board-green-57687f5467-9gd5p"}
 ### SWITCH MARK: 2026-10-13T13:49:10Z switch-to-blue
-### SWITCH MARK: 2
-### SWITCH MARK: 0
 2026-10-13T13:49:10Z OK {"version": "1.1.0", "student": "02230153", "pod": "notice-board-green-57687f5467-2gphs"}
 2026-10-13T13:49:11Z OK {"version": "1.1.0", "student": "02230153", "pod": "notice-board-green-57687f5467-9gd5p"}
 2026-10-13T13:49:11Z OK {"version": "1.0.0", "student": "02230153", "pod": "notice-board-blue-66f69c6cc4-d6xpc"}
@@ -429,6 +427,7 @@
 2026-10-13T13:49:30Z OK {"version": "1.0.0", "student": "02230153", "pod": "notice-board-blue-66f69c6cc4-h22g8"}
 2026-10-13T13:49:31Z OK {"version": "1.0.0", "student": "02230153", "pod": "notice-board-blue-66f69c6cc4-d6xpc"}
 2026-10-13T13:49:31Z OK {"version": "1.0.0", "student": "02230153", "pod": "notice-board-blue-66f69c6cc4-d6xpc"}
+### SWITCH MARK: 2026-10-13T13:49:32Z switch-to-green
 2026-10-13T13:49:32Z OK {"version": "1.1.0", "student": "02230153", "pod": "notice-board-green-57687f5467-9gd5p"}
 2026-10-13T13:49:33Z OK {"version": "1.1.0", "student": "02230153", "pod": "notice-board-green-57687f5467-9gd5p"}
 2026-10-13T13:49:33Z OK {"version": "1.1.0", "student": "02230153", "pod": "notice-board-green-57687f5467-2rqtp"}
