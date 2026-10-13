@@ -1,0 +1,44 @@
+  # Purpose: availability monitor - requests http://notice-board/version every 0.5 s forever (Task 4).
+# Apply:   kubectl --context kind-cte412-02230153 apply -f manifests/base/monitor.yaml
+# Read:    kubectl logs monitor -n nb-02230153 > evidence/t4-at-rest.log
+apiVersion: v1
+kind: Pod
+metadata:
+  # Name required by the practical.
+  name: monitor
+  # Same namespace as the application so the short Service name notice-board resolves.
+  namespace: nb-02230153
+  labels:
+    # Distinct from app=notice-board so the Services never select the monitor.
+    app: monitor
+spec:
+  # Never restart: a restart would break the "no restart between measurements" rule.
+  restartPolicy: Never
+  containers:
+    - name: monitor
+      # busybox provides wget and date; load it into kind so no registry pull is needed at run time.
+      image: busybox:1.36
+      # IfNotPresent so the image loaded with "kind load" is used.
+      imagePullPolicy: IfNotPresent
+      # Small explicit values keep quota headroom for blue/green plus a surge Pod (limits.cpu hard = 2).
+      resources:
+        requests:
+          cpu: 10m
+          memory: 16Mi
+        limits:
+          cpu: 50m
+          memory: 32Mi
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          # One line per request: <ISO-8601 UTC timestamp> <OK|FAIL> <body or error>
+          while true; do
+            ts=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+            # -T 1: one-second timeout so a dead endpoint is recorded as FAIL, not a hang.
+            if body=$(wget -q -T 1 -O - http://notice-board/version 2>/dev/null) && [ -n "$body" ]; then
+              echo "$ts OK $body"
+            else
+              echo "$ts FAIL request-error"
+            fi
+            sleep 0.5
+          done
