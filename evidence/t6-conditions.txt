@@ -1,0 +1,14 @@
+
+
+type    : Available
+status  : True
+reason  : MinimumReplicasAvailable
+message : Deployment has minimum availability.
+
+type    : Progressing
+status  : True
+reason  : NewReplicaSetAvailable
+message : ReplicaSet "notice-board-79db85f4f4" has successfully progressed.
+
+
+

@@ -1,0 +1,5 @@
+Captured from the terminal at 10:32:57 UTC (immediately after the Recreate release, before the later releases reused its ReplicaSet):
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+3         Release 1.1.0 using Recreate strategy
