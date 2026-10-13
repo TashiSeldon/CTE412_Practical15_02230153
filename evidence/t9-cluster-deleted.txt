@@ -1,0 +1,34 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261013203838
+Username: TASHI-SELDON200\DELL
+RunAs User: TASHI-SELDON200\DELL
+Configuration Name: 
+Machine: TASHI-SELDON200 (Microsoft Windows NT 10.0.22631.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Process ID: 16388
+PSVersion: 5.1.22621.5983
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.22621.5983
+BuildVersion: 10.0.22621.5983
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is evidence\t9-cluster-deleted.txt
+Context "kind-cte412-02230153" modified.
+Deleting cluster "cte412-02230153" ...
+Deleted nodes: ["cte412-02230153-control-plane" "cte412-02230153-worker" "cte412-02230153-worker2"]
+4it
+dso202
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+CURRENT   NAME             CLUSTER          AUTHINFO         NAMESPACE
+          docker-desktop   docker-desktop   docker-desktop
+          kind-4it         kind-4it         kind-4it
+          kind-dso202      kind-dso202      kind-dso202      dso202-practical
+          minikube         minikube         minikube         default
+**********************
+Windows PowerShell transcript end
+End time: 20261013203844
+**********************
