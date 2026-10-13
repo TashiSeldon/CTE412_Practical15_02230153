@@ -1,0 +1,16 @@
+E2.3 startup test, student 02230153
+t=0s  /version:   /healthz:  HTTP 000
+t=0.6s  /version:   /healthz:  HTTP 000
+t=1.3s  /version:   /healthz:  HTTP 000
+t=1.9s  /version: {"version": "1.0.0", "student": "02230153", "pod": "3c5bb64bb6f8"}  /healthz: {"status": "unhealthy"} HTTP 503
+t=2.6s  /version: {"version": "1.0.0", "student": "02230153", "pod": "3c5bb64bb6f8"}  /healthz: {"status": "unhealthy"} HTTP 503
+t=3.2s  /version: {"version": "1.0.0", "student": "02230153", "pod": "3c5bb64bb6f8"}  /healthz: {"status": "unhealthy"} HTTP 503
+t=3.8s  /version: {"version": "1.0.0", "student": "02230153", "pod": "3c5bb64bb6f8"}  /healthz: {"status": "unhealthy"} HTTP 503
+t=4.4s  /version: {"version": "1.0.0", "student": "02230153", "pod": "3c5bb64bb6f8"}  /healthz: {"status": "unhealthy"} HTTP 503
+t=4.9s  /version: {"version": "1.0.0", "student": "02230153", "pod": "3c5bb64bb6f8"}  /healthz: {"status": "unhealthy"} HTTP 503
+t=5.5s  /version: {"version": "1.0.0", "student": "02230153", "pod": "3c5bb64bb6f8"}  /healthz: {"status": "unhealthy"} HTTP 503
+t=6.1s  /version: {"version": "1.0.0", "student": "02230153", "pod": "3c5bb64bb6f8"}  /healthz: {"status": "unhealthy"} HTTP 503
+t=6.7s  /version: {"version": "1.0.0", "student": "02230153", "pod": "3c5bb64bb6f8"}  /healthz: {"status": "healthy"} HTTP 200
+t=7.3s  /version: {"version": "1.0.0", "student": "02230153", "pod": "3c5bb64bb6f8"}  /healthz: {"status": "healthy"} HTTP 200
+t=7.9s  /version: {"version": "1.0.0", "student": "02230153", "pod": "3c5bb64bb6f8"}  /healthz: {"status": "healthy"} HTTP 200
+t=8.5s  /version: {"version": "1.0.0", "student": "02230153", "pod": "3c5bb64bb6f8"}  /healthz: {"status": "healthy"} HTTP 200

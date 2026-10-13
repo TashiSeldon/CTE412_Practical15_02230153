@@ -1,0 +1,23 @@
+# Purpose: Configure the CTE412 Practical 15 three-node kind cluster.
+# Apply command: C:\kind\kind.exe create cluster --name cte412-02230153 --config cluster/kind-cluster.yaml
+
+# Required kind configuration API version.
+apiVersion: kind.x-k8s.io/v1alpha4
+# Defines a local Kubernetes cluster.
+kind: Cluster
+
+nodes:
+  # One control-plane node also exposes the required host port.
+  - role: control-plane
+    # Bind only to localhost so the service is not exposed to the network.
+    extraPortMappings:
+      - containerPort: 30090
+        hostPort: 30090
+        listenAddress: "127.0.0.1"
+        protocol: TCP
+
+  # First worker node for application workloads.
+  - role: worker
+
+  # Second worker node for application workloads.
+  - role: worker

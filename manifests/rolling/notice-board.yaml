@@ -1,0 +1,119 @@
+﻿# Purpose: Deploy three local Campus Notice Board v1.0.0 replicas and expose them internally and through NodePort.
+# Apply command: kubectl --context kind-cte412-02230153 apply -f manifests/rolling/notice-board.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Name the Deployment required for the notice-board application.
+  name: notice-board
+  # Keep application resources inside the student namespace.
+  namespace: nb-02230153
+spec:
+  # Run three replicas to support the required multi-Pod access test.
+  replicas: 3
+  selector:
+    # Match only Pods belonging to this application.
+    matchLabels:
+      app: notice-board
+  template:
+    metadata:
+      labels:
+        # Identify Pods belonging to the notice-board application.
+        app: notice-board
+        # Identify the application release running in these Pods.
+        version: "1.0.0"
+    spec:
+      containers:
+        - name: notice-board
+          # Use the locally built image; no registry pull is permitted.
+          image: notice-board:02230153-1.0.0
+          # Require the image to exist on the Kind node.
+          imagePullPolicy: Never
+          ports:
+            - name: http
+              # The application listens on TCP port 8080.
+              containerPort: 8080
+              # Use TCP for HTTP traffic.
+              protocol: TCP
+          resources:
+            requests:
+              # Reserve CPU capacity for each application Pod.
+              cpu: "100m"
+              # Reserve memory for each application Pod.
+              memory: "96Mi"
+            limits:
+              # Bound CPU consumption per application Pod.
+              cpu: "250m"
+              # Bound memory consumption per application Pod.
+              memory: "192Mi"
+          readinessProbe:
+            # Send traffic only after the application's warm-up completes.
+            httpGet:
+              path: /healthz
+              port: http
+            # Allow the app time to start before the first health check.
+            initialDelaySeconds: 1
+            # Recheck readiness every two seconds.
+            periodSeconds: 2
+            # Limit the time allowed for each readiness check.
+            timeoutSeconds: 1
+            # Mark the Pod unready after repeated failed checks.
+            failureThreshold: 3
+          livenessProbe:
+            # Check that the server accepts TCP connections, not /healthz.
+            # /healthz is intentionally unhealthy during the five-second warm-up.
+            tcpSocket:
+              port: http
+            # Allow the application process time to start.
+            initialDelaySeconds: 2
+            # Recheck liveness every ten seconds.
+            periodSeconds: 10
+            # Limit the time allowed for each liveness check.
+            timeoutSeconds: 1
+            # Restart only after repeated failed liveness checks.
+            failureThreshold: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  # Provide stable in-cluster access to the notice-board Pods.
+  name: notice-board
+  namespace: nb-02230153
+spec:
+  # Keep this Service accessible within the cluster.
+  type: ClusterIP
+  selector:
+    # Send requests only to notice-board Pods.
+    app: notice-board
+  ports:
+    - name: http
+      # Expose the application internally on port 80.
+      port: 80
+      # Forward requests to the named application container port.
+      targetPort: http
+      # Use TCP for HTTP traffic.
+      protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  # Provide access from the Windows host through the Kind port mapping.
+  name: notice-board-ext
+  namespace: nb-02230153
+spec:
+  # Expose the application through a node port.
+  type: NodePort
+  selector:
+    # Send requests only to notice-board Pods.
+    app: notice-board
+  ports:
+    - name: http
+      # Expose the Service on port 80.
+      port: 80
+      # Forward requests to the named application container port.
+      targetPort: http
+      # Use TCP for HTTP traffic.
+      protocol: TCP
+      # Match the host port mapping configured in the Kind cluster.
+      nodePort: 30090
+

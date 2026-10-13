@@ -1,0 +1,4 @@
+﻿NAME                            STATUS   ROLES           AGE    VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                       KERNEL-VERSION                              CONTAINER-RUNTIME
+cte412-02230153-control-plane   Ready    control-plane   116s   v1.37.0   172.20.0.11   <none>        Debian GNU/Linux 13 (trixie)   6.18.40.1-microsoft-standard-WSL2 (amd64)   containerd://2.3.4
+cte412-02230153-worker          Ready    <none>          101s   v1.37.0   172.20.0.12   <none>        Debian GNU/Linux 13 (trixie)   6.18.40.1-microsoft-standard-WSL2 (amd64)   containerd://2.3.4
+cte412-02230153-worker2         Ready    <none>          101s   v1.37.0   172.20.0.10   <none>        Debian GNU/Linux 13 (trixie)   6.18.40.1-microsoft-standard-WSL2 (amd64)   containerd://2.3.4

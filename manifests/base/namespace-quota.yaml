@@ -1,0 +1,55 @@
+# Purpose: Create the student namespace, ResourceQuota, and LimitRange.
+# Apply command: kubectl --context kind-cte412-02230153 apply -f manifests/base/namespace-quota.yaml
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  # Include the student ID to identify this practical's resources.
+  name: nb-02230153
+  labels:
+    # Group resources belonging to the Campus Notice Board project.
+    app.kubernetes.io/part-of: campus-notice-board
+    # Identify the practical using the required label.
+    cte412/practical: "06"
+  annotations:
+    # Replace this placeholder with your full name before applying.
+    student.full-name: "Tashi Seldon"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  # Apply the quota inside the practical namespace.
+  name: nb-quota
+  namespace: nb-02230153
+spec:
+  hard:
+    # Reserve no more than 1 CPU for container requests.
+    requests.cpu: "1"
+    # Limit requested memory to 1 GiB.
+    requests.memory: 1Gi
+    # Allow a maximum of 2 CPU in container limits.
+    limits.cpu: "2"
+    # Allow a maximum of 2 GiB in container limits.
+    limits.memory: 2Gi
+    # Leave capacity for the monitor and release workloads.
+    pods: "15"
+    # Limit the namespace to four Services.
+    count/services: "4"
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  # Supply default container resource values in this namespace.
+  name: nb-limit-range
+  namespace: nb-02230153
+spec:
+  limits:
+    - type: Container
+      # Default request is 50 millicores, allowing multiple Pods within the CPU quota.
+      defaultRequest:
+        cpu: 50m
+        memory: 64Mi
+      # Default limit is 200 millicores and 128 MiB per container.
+      default:
+        cpu: 200m
+        memory: 128Mi
