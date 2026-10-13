@@ -10,13 +10,20 @@ metadata:
   namespace: nb-02230153
   annotations:
     # Recorded in rollout history for the revision this apply creates (Task 5.1).
-    kubernetes.io/change-cause: "Return to 1.0.0 using Recreate strategy"
+    kubernetes.io/change-cause: "Release 1.1.0 using RollingUpdate (maxUnavailable 0, maxSurge 1, minReadySeconds 5)"
 spec:
   # Run three replicas to support the required multi-Pod access test.
   replicas: 3
+  # A new Pod must stay Ready for 5 s before it counts as available, so a Pod that flaps is not trusted.
+  minReadySeconds: 5
   strategy:
-    # Recreate stops every old Pod before any new Pod starts, so downtime is expected.
-    type: Recreate
+    # RollingUpdate replaces Pods gradually so the Service always has ready endpoints.
+    type: RollingUpdate
+    rollingUpdate:
+      # Never remove a ready Pod before its replacement is available (zero downtime).
+      maxUnavailable: 0
+      # Allow one extra Pod during the rollout so capacity never drops below 3.
+      maxSurge: 1
   selector:
     # Match only Pods belonging to this application.
     matchLabels:
@@ -27,12 +34,12 @@ spec:
         # Identify Pods belonging to the notice-board application.
         app: notice-board
         # Identify the application release running in these Pods.
-        version: "1.0.0"
+        version: "1.1.0"
     spec:
       containers:
         - name: notice-board
           # Use the locally built image; no registry pull is permitted.
-          image: notice-board:02230153-1.0.0
+          image: notice-board:02230153-1.1.0
           # Require the image to exist on the Kind node.
           imagePullPolicy: Never
           ports:
@@ -122,6 +129,7 @@ spec:
       protocol: TCP
       # Match the host port mapping configured in the Kind cluster.
       nodePort: 30090
+
 
 
 

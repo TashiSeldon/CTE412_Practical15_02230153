@@ -1,0 +1,6 @@
+deployment.apps/notice-board 
+REVISION  CHANGE-CAUSE
+1         <none>
+4         Return to 1.0.0 using Recreate strategy
+5         Release 1.1.0 using RollingUpdate (maxUnavailable 0, maxSurge 1, minReadySeconds 5)
+
