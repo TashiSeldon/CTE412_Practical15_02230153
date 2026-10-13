@@ -1,0 +1,13 @@
+# Purpose: feature-flag ConfigMap read by the green Deployment (Task 8).
+# Apply:   kubectl apply -f manifests/bluegreen/flags.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: notice-board-flags
+  namespace: nb-02230153
+  labels:
+    app.kubernetes.io/part-of: campus-noticeboard   # same label as the other objects
+data:
+  FEATURE_PINNED: "true"   # true = pinned notices listed first (flag flipped in Task 8)
+
+

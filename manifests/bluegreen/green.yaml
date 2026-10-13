@@ -1,4 +1,4 @@
-﻿# Purpose: green slot - notice-board 1.1.0, verified through the preview Service (Task 7).
+# Purpose: green slot - notice-board 1.1.0, verified through the preview Service (Task 7).
 # Apply:   kubectl --context kind-cte412-02230153 apply -f manifests/bluegreen/green.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -27,6 +27,9 @@ spec:
       slot: green
   template:
     metadata:
+      annotations:
+        # Bump when the flags ConfigMap changes: env vars are read at start-up, so Pods must be replaced (Task 8).
+        cte412/flags-revision: "2"
       labels:
         # Common label for the application.
         app: notice-board
@@ -47,6 +50,14 @@ spec:
               # The application listens on 8080.
               containerPort: 8080
               protocol: TCP
+          env:
+            # The application reads this variable once, at start-up (Task 8).
+            - name: FEATURE_PINNED
+              valueFrom:
+                configMapKeyRef:
+                  # Flag lives in the ConfigMap so it can change without a new image.
+                  name: notice-board-flags
+                  key: FEATURE_PINNED
           resources:
             requests:
               # 100m x 6 Pods = 600m of the 1 CPU request quota.
