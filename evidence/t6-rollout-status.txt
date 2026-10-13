@@ -1,1 +1,7 @@
-deployment "notice-board" successfully rolled out
+kubectl : error: deployment "notice-board" exceeded its progress deadline
+At line:9 char:1
++ kubectl rollout status deployment/notice-board --timeout=10s 2>&1 | O ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: deployme...ogress deadline:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
