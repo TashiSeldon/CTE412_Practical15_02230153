@@ -1,0 +1,87 @@
+﻿# Purpose: green slot - notice-board 1.1.0, verified through the preview Service (Task 7).
+# Apply:   kubectl --context kind-cte412-02230153 apply -f manifests/bluegreen/green.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Green colour of the blue/green pair.
+  name: notice-board-green
+  namespace: nb-02230153
+spec:
+  # Three replicas, same as Task 3, so both colours can serve production alone.
+  replicas: 3
+  # A new Pod must stay Ready for 5 s before it counts as available.
+  minReadySeconds: 5
+  # Mark a rollout failed if it makes no progress for 60 s.
+  progressDeadlineSeconds: 60
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      # Never remove a ready Pod before its replacement is available.
+      maxUnavailable: 0
+      # One extra Pod during a rollout; 7 Pods x 250m stays under limits.cpu 2.
+      maxSurge: 1
+  selector:
+    matchLabels:
+      # Both labels so the blue and green Deployments never select each other's Pods.
+      app: notice-board
+      slot: green
+  template:
+    metadata:
+      labels:
+        # Common label for the application.
+        app: notice-board
+        # Slot label used by the Services to choose a colour.
+        slot: green
+        # Must equal the image version so the Pod list shows what is running.
+        version: "1.1.0"
+    spec:
+      containers:
+        - name: notice-board
+          # Locally built image; no registry pull is permitted.
+          image: notice-board:02230153-1.1.0
+          # Never: the kubelet may not attempt a registry pull; the image must already be on the node.
+          imagePullPolicy: Never
+          ports:
+            # Named port so Services can use targetPort: http.
+            - name: http
+              # The application listens on 8080.
+              containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              # 100m x 6 Pods = 600m of the 1 CPU request quota.
+              cpu: "100m"
+              # 96Mi x 6 Pods = 576Mi of the 1Gi request quota.
+              memory: "96Mi"
+            limits:
+              # 250m x 7 Pods (6 + 1 surge) + monitor 50m = 1.8 CPU, under limits.cpu 2.
+              cpu: "250m"
+              # 192Mi x 7 + monitor 32Mi = 1.38Gi, under limits.memory 2Gi.
+              memory: "192Mi"
+          readinessProbe:
+            # Send traffic only after the 5-second warm-up completes.
+            httpGet:
+              path: /healthz
+              port: http
+            # First check after 1 s.
+            initialDelaySeconds: 1
+            # Re-check every 2 s so readiness is noticed quickly.
+            periodSeconds: 2
+            # A check taking longer than 1 s counts as failed.
+            timeoutSeconds: 1
+            # Three consecutive failures mark the Pod not ready.
+            failureThreshold: 3
+          livenessProbe:
+            # TCP check, not /healthz: /healthz is deliberately unhealthy during warm-up
+            # and a liveness failure would restart the container.
+            tcpSocket:
+              port: http
+            # Give the process time to start.
+            initialDelaySeconds: 2
+            # Check every 10 s; liveness need not be fast.
+            periodSeconds: 10
+            # A check taking longer than 1 s counts as failed.
+            timeoutSeconds: 1
+            # Restart only after three consecutive failures.
+            failureThreshold: 3
+

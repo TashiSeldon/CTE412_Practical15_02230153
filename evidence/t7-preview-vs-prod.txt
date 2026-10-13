@@ -1,0 +1,10 @@
+--- preview (green) ---
+{"version": "1.1.0", "student": "02230153", "pod": "notice-board-green-57687f5467-2gphs"}
+{"version": "1.1.0", "student": "02230153", "pod": "notice-board-green-57687f5467-2gphs"}
+{"version": "1.1.0", "student": "02230153", "pod": "notice-board-green-57687f5467-2gphs"}
+{"version": "1.1.0", "student": "02230153", "pod": "notice-board-green-57687f5467-2rqtp"}
+--- production (blue) ---
+{"version": "1.0.0", "student": "02230153", "pod": "notice-board-blue-66f69c6cc4-h22g8"}
+{"version": "1.0.0", "student": "02230153", "pod": "notice-board-blue-66f69c6cc4-d6xpc"}
+{"version": "1.0.0", "student": "02230153", "pod": "notice-board-blue-66f69c6cc4-svm7d"}
+{"version": "1.0.0", "student": "02230153", "pod": "notice-board-blue-66f69c6cc4-svm7d"}

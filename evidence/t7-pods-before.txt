@@ -1,0 +1,7 @@
+NAME                                  READY   STATUS    RESTARTS   AGE   IP           NODE                      NOMINATED NODE   READINESS GATES   LABELS
+notice-board-blue-66f69c6cc4-d6xpc    1/1     Running   0          97s   10.244.2.2   cte412-02230153-worker    <none>           <none>            app=notice-board,pod-template-hash=66f69c6cc4,slot=blue,version=1.0.0
+notice-board-blue-66f69c6cc4-h22g8    1/1     Running   0          97s   10.244.3.2   cte412-02230153-worker2   <none>           <none>            app=notice-board,pod-template-hash=66f69c6cc4,slot=blue,version=1.0.0
+notice-board-blue-66f69c6cc4-svm7d    1/1     Running   0          97s   10.244.3.3   cte412-02230153-worker2   <none>           <none>            app=notice-board,pod-template-hash=66f69c6cc4,slot=blue,version=1.0.0
+notice-board-green-57687f5467-2gphs   1/1     Running   0          97s   10.244.3.4   cte412-02230153-worker2   <none>           <none>            app=notice-board,pod-template-hash=57687f5467,slot=green,version=1.1.0
+notice-board-green-57687f5467-2rqtp   1/1     Running   0          97s   10.244.2.4   cte412-02230153-worker    <none>           <none>            app=notice-board,pod-template-hash=57687f5467,slot=green,version=1.1.0
+notice-board-green-57687f5467-9gd5p   1/1     Running   0          97s   10.244.2.3   cte412-02230153-worker    <none>           <none>            app=notice-board,pod-template-hash=57687f5467,slot=green,version=1.1.0

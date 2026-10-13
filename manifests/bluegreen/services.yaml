@@ -1,0 +1,68 @@
+﻿# Purpose: production and preview Services for the blue/green release (Task 7).
+# Apply:   kubectl --context kind-cte412-02230153 apply -f manifests/bluegreen/services.yaml
+# Switch:  edit the slot on the two lines marked PRODUCTION-SLOT, then apply this file.
+apiVersion: v1
+kind: Service
+metadata:
+  # Stable in-cluster name used by the monitor; always points at the live colour.
+  name: notice-board
+  namespace: nb-02230153
+spec:
+  # ClusterIP: reachable only inside the cluster.
+  type: ClusterIP
+  selector:
+    # Send requests only to notice-board Pods.
+    app: notice-board
+    # Colour currently serving production.
+    slot: blue # PRODUCTION-SLOT
+  ports:
+    - name: http
+      # Service port 80.
+      port: 80
+      # Forward to the named container port.
+      targetPort: http
+      protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  # Host-facing production Service, reached through the kind port mapping.
+  name: notice-board-ext
+  namespace: nb-02230153
+spec:
+  # NodePort so the host can reach it on 127.0.0.1:30090.
+  type: NodePort
+  selector:
+    # Send requests only to notice-board Pods.
+    app: notice-board
+    # Must always match the slot of the notice-board Service above.
+    slot: blue # PRODUCTION-SLOT
+  ports:
+    - name: http
+      port: 80
+      # Forward to the named container port.
+      targetPort: http
+      protocol: TCP
+      # Must match the hostPort mapping in cluster/kind-cluster.yaml.
+      nodePort: 30090
+---
+apiVersion: v1
+kind: Service
+metadata:
+  # Preview Service: always shows the green colour, for testing before a switch.
+  name: notice-board-preview
+  namespace: nb-02230153
+spec:
+  # ClusterIP: only reachable from inside the cluster.
+  type: ClusterIP
+  selector:
+    # Send requests only to notice-board Pods.
+    app: notice-board
+    # Always green; never switched.
+    slot: green
+  ports:
+    - name: http
+      port: 80
+      # Forward to the named container port.
+      targetPort: http
+      protocol: TCP

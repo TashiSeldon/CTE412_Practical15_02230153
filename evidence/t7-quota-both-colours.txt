@@ -1,0 +1,10 @@
+Name:            nb-quota
+Namespace:       nb-02230153
+Resource         Used    Hard
+--------         ----    ----
+count/services   3       4
+limits.cpu       1550m   2
+limits.memory    1184Mi  2Gi
+pods             7       15
+requests.cpu     610m    1
+requests.memory  592Mi   1Gi
