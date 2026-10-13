@@ -1,0 +1,7 @@
+failed requests:       10
+first FAIL:            2026-10-13T10:32:29Z
+last FAIL:             2026-10-13T10:32:42Z
+failure window:        13 s
+first 1.1.0 response: 2026-10-13T10:32:43Z
+last 1.0.0 response:  2026-10-13T10:32:28Z
+mixed-version window:  0 s (0 = the two versions never overlapped)
