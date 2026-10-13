@@ -1,0 +1,71 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261013203244
+Username: TASHI-SELDON200\DELL
+RunAs User: TASHI-SELDON200\DELL
+Configuration Name: 
+Machine: TASHI-SELDON200 (Microsoft Windows NT 10.0.22631.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Process ID: 16388
+PSVersion: 5.1.22621.5983
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.22621.5983
+BuildVersion: 10.0.22621.5983
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is evidence\t9-rebuild.txt
+kubectl cluster-info --context kind-cte412-02230153
+
+Thanks for using kind! ��
+
+PS>ParameterBinding(Out-File): name="InputObject"; value="Client Version: v1.36.1"
+>> ParameterBinding(Out-File): name="InputObject"; value="Kustomize Version: v5.8.1"
+>> ParameterBinding(Out-File): name="InputObject"; value="Server Version: v1.37.0"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{"version": "1.1.0", "student": "02230153", "pod": "notice-board-green-564f87986d-tqd94"}
+s Meeting", "body": "The campus meeting is on Friday.", "category": "Events", "pinned": false}], "pinnedFirst": true}
+PS C:\Users\itech\Desktop\CTE412_Practical15_02230153> kubectl delete deployment,service,configmap,pod --all -n nb-02230153
+kubectl get all,configmap -n nb-02230153
+kubectl apply -f manifests/bluegreen/services.yaml
+kubectl apply -f manifests/bluegreen/flags.yaml
+kubectl apply -f manifests/bluegreen/blue.yaml
+kubectl apply -f manifests/bluegreen/green.yaml
+kubectl rollout status deployment/notice-board-blue
+kubectl rollout status deployment/notice-board-green
+kubectl apply -f manifests/base/monitor.yaml
+kubectl get all,configmap,endpointslices
+curl.exe -s http://127.0.0.1:30090/version
+curl.exe -s http://127.0.0.1:30090/notices
+Stop-Transcript
+
+
+
+
+
+
+
+
+
+
+{"version": "1.1.0", "student": "02230153", "pod": "notice-board-green-564f87986d-dbgtd"}
+s Meeting", "body": "The campus meeting is on Friday.", "category": "Events", "pinned": false}], "pinnedFirst": true}
+**********************
+Windows PowerShell transcript end
+End time: 20261013203722
+**********************
