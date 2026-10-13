@@ -166,3 +166,6 @@ kind delete cluster --name cte412-02230153
 
 ```
 
+[View Lab Report PDF](https://github.com/TashiSeldon/CTE412_Practical15_02230153/blob/master/report/02230153_Practical15_LabReport_CTE412_4IT_AS2026.pdf)
+
+
