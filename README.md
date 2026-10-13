@@ -167,10 +167,11 @@ kind delete cluster --name cte412-02230153
 ```
 
 <p align="center">
-  <a href="https://github.com/TashiSeldon/CTE412_Practical15_02230153/blob/master/report/02230153_Practical15_LabReport_CTE412_4IT_AS2026.pdf">
-    <img src="https://img.shields.io/badge/View%20Lab%20Report-PDF-blue?style=for-the-badge" alt="View Lab Report PDF">
+  <a href="https://github.com/TashiSeldon/CTE412_Practical15_02230153/blob/master/report/02230153_Practical15_LabReport_CTE412_4IT_AS2026.pdf" target="_blank">
+    <img src="https://img.shields.io/badge/VIEW%20LAB%20REPORT-PDF-blue?style=for-the-badge" alt="View Lab Report PDF">
   </a>
 </p>
+
 
 
 
